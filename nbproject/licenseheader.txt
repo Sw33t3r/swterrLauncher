@@ -1,8 +1,8 @@
 <#if licenseFirst??>
 ${licenseFirst}
 </#if>
-${licensePrefix}This proggram is maked by http://свитеров.рф
-${licensePrefix}Each line should be prefixed with ${licensePrefix}
+${licensePrefix}
+${licensePrefix}
 <#if licenseLast??>
 ${licenseLast}
 </#if>
