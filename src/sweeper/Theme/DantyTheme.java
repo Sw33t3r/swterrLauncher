@@ -1,60 +1,74 @@
 package sweeper.Theme;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.*;
 public class DantyTheme {
-    
-       static boolean printTitleBar = false; /* Печатать заголовок сверху? true - печатать, false - наоборот. */
-    
-    
+
+	static boolean printTitleBar = false; /* Печатать заголовок сверху? true - печатать, false - наоборот. */
+	static String PathToImgDir = "Theme/DantyTheme/img"; /* Путь к папке с картинками для этой темы */
+
 	static Point mouseDownCompCoords;
-	static String PathToImgDir = "Theme/DantyTheme/img";;
-	public static void StartMainFrame(String header) {
-		JFrame jfr = new JFrame(header);
-		mouseDownCompCoords = null;
-		ImageIcon bg = new ImageIcon(PathToImgDir + "/mainBg.png");
-		jfr.setContentPane(new JLabel(bg));
-		Point center = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint();
-		int windowWidth = bg.getIconWidth() ;
-		int windowHeight = bg.getIconHeight() ;
-		// set position and size
-		jfr.setBounds(center.x - windowWidth / 2, center.y - windowHeight / 2, windowWidth, windowHeight);
-		jfr.setUndecorated(true);
-		jfr.setShape(new RoundRectangle2D.Double(0, 0, windowWidth, windowHeight, 7, 7));
-		JButton ExitBtn = new JButton(new ImageIcon(PathToImgDir + "/closeBtn.png"));
-		ExitBtn.setBounds(windowWidth - 51, 0, 51, 27);
-		ExitBtn.setBorder(null);
-		Component btn = jfr.add(ExitBtn);
-		btn.addMouseListener(new MouseListener() {
-			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
+	public void StartMainFrame(String header) {
+		JFrame jfr = new JFrame(header); //Создаём JFrame
+		mouseDownCompCoords = null; //Обнуляем координаты мыши (лютый бред)
+		ImageIcon bgic = new ImageIcon(PathToImgDir + "/mainBg.png"); //Создаём ImageIcon для фона
+                JLabel bg = new JLabel(bgic);
+		jfr.setContentPane(bg); //Задаём наш фон ContentPane`ом
+		Point center = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint(); //Получаем центральную точку на мониторе
+		int windowWidth = bgic.getIconWidth(); //Ширина формы по ширине фона
+		int windowHeight = bgic.getIconHeight(); //Высота формы по высоте фона
+		jfr.setBounds(center.x - windowWidth / 2, center.y - windowHeight / 2, windowWidth, windowHeight); //позиционируем и ставим размер
+		jfr.setUndecorated(true); //убираем элементы управления - кнопки сверху и проч.
+		jfr.setShape(new RoundRectangle2D.Double(0, 0, windowWidth, windowHeight, 7, 7)); //закругляем углы, задавая форму прямоугольника со скруглёнными углами
+		JButton ExitBtn = new JButton(new ImageIcon(PathToImgDir + "/closeBtn.png")); //создаём обьект для кнопки закрытия
+		ExitBtn.setBounds(windowWidth - 51, 0, 51, 27); //позиционируем и ставим размер
+		ExitBtn.setBorder(null); //убираем обводку
+		Component btn = jfr.add(ExitBtn); //добавляем на фрейм
+		btn.addMouseListener(new MouseListener() { //добавляем MouseListener`a
+			public void mouseClicked(MouseEvent e) { //если нажата кнопка...
+				System.exit(0); //...то выходим
 			}
-			public void mousePressed(MouseEvent e) {}
-			public void mouseReleased(MouseEvent e) {}
-			public void mouseEntered(MouseEvent e) {}
-			public void mouseExited(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {} //костыль
+			public void mouseReleased(MouseEvent e) {} //костыль
+			public void mouseEntered(MouseEvent e) {} //костыль
+			public void mouseExited(MouseEvent e) {} //костыль
 		});
-		System.out.println("Exit btn is added. Coordinates:  " + btn.getBounds().toString());
-                if(printTitleBar){
-		 Component titleBg = jfr.add(new JLabel((new ImageIcon(PathToImgDir+"/headerBg.png"))));
-    titleBg.setBounds(0, 0, windowWidth,27);
-    System.out.println("Title background is added. Coordinates:  "+titleBg.getBounds().toString());
-    Component title = jfr.add(new JLabel(header));
-    title.setBounds(7, 0, windowWidth,27);
-    title.setForeground(Color.WHITE);
-    System.out.println("Title is printed. Coordinates:  "+title.getBounds().toString());
-                }
-                else {
-                Component title2 = jfr.add(new JLabel(header));
-                title2.setBounds((jfr.getWidth() / 2) -60/* -60 == width of title:2 */, ((jfr.getHeight() / 2) - 100) + 20, 120, 20);
-		title2.setForeground(Color.WHITE);
-		title2.setFont(new Font("Calibri", Font.PLAIN, 19));
-		System.out.println("Title is printed. Coordinates:  " + title2.getBounds().toString());
-                }
-                
+		System.out.println("Exit btn is added. Coordinates:  " + btn.getBounds().toString()); //оповещаем консольку о том, что вывели кнопку и даём координаты
+		if (printTitleBar) { //если надо печатать заголовок
+			Component titleBg = jfr.add(new JLabel((new ImageIcon(PathToImgDir + "/headerBg.png"))));
+			titleBg.setBounds(0, 0, windowWidth, 27);
+			System.out.println("Title background is added. Coordinates:  " + titleBg.getBounds().toString());
+			Component title = jfr.add(new JLabel(header));
+			title.setBounds(7, 0, windowWidth, 27);
+			title.setForeground(Color.WHITE);
+			System.out.println("Title is printed. Coordinates:  " + title.getBounds().toString());
+		} else { //если не надо печатать заголовок
+			Component title2 = jfr.add(new JLabel(header));
+			title2.setBounds((jfr.getWidth() / 2) - 70 /* -70 == width of title:2 */ , ((jfr.getHeight() / 2) - 100) + 20, 140, 20);
+			title2.setForeground(Color.WHITE);
+			title2.setFont(new Font("There comes a name of font; The name of font is James Bond", Font.PLAIN, 19)); /* This is not joke. Really Bond.*/
+			System.out.println("Title is printed. Coordinates:  " + title2.getBounds().toString());
+		}
+		JTextField textField = new JTextField();
+		textField.setOpaque(false);
+		JLabel label = new JLabel(new ImageIcon(PathToImgDir + "/textField.png"));
+		label.setLayout(new BorderLayout());
+		label.add(textField);
+		textField.setBounds((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) - 45) + 20, 260, 45);
+		label.setBounds((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) - 45) + 20, 260, 45);
+		textField.setBorder(null);
+		textField.setFont(new Font("There comes a name of font; The name of font is James Bond", Font.PLAIN, 14)); /* This is not joke. Really Bond.*/
+		textField.setBorder(BorderFactory.createCompoundBorder(
+		textField.getBorder(),
+		BorderFactory.createEmptyBorder(5, 17, 0, 0)));
+		textField.setForeground(new Color(51, 51, 51));
+		jfr.add(label);
+
+
 		jfr.addMouseListener(new MouseListener() {@Override public void mouseReleased(MouseEvent e) {
 				mouseDownCompCoords = null;
 			}@Override public void mousePressed(MouseEvent e) {
@@ -68,5 +82,12 @@ public class DantyTheme {
 			}
 		});
 		jfr.setVisible(true); // Display the window
+		Container mainPanel = jfr.getContentPane();
+		mainPanel.addMouseListener(new MouseAdapter() {@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseReleased(e);
+				bg.grabFocus();
+			}
+		});
 	}
 }
