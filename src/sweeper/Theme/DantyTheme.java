@@ -1,9 +1,6 @@
 package sweeper.Theme;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.*;
 public class DantyTheme {
@@ -11,9 +8,9 @@ public class DantyTheme {
 	static boolean printTitleBar = false; /* Печатать заголовок сверху? true - печатать, false - наоборот. */
 	static String PathToImgDir = "Theme/DantyTheme/img"; /* Путь к папке с картинками для этой темы */
 
-	static Point mouseDownCompCoords;
+	static Point mouseDownCompCoords;@SuppressWarnings("empty-statement")
 	public void StartMainFrame(String header) {
-		JFrame jfr = new JFrame(header);//Создаём JFrame
+		JFrame jfr = new JFrame(header); //Создаём JFrame
 		mouseDownCompCoords = null; //Обнуляем координаты мыши (лютый бред)
 		ImageIcon bgic = new ImageIcon(PathToImgDir + "/mainBg.png"); //Создаём ImageIcon для фона
 		JLabel bg = new JLabel(bgic);
@@ -58,16 +55,18 @@ public class DantyTheme {
 		TextField(sweeper.Config.LoginPlaceholder, new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) - 75) + 20, 260, 45), jfr);
 		TextField(sweeper.Config.PasswordPlaceholder, new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) + 5) - 10, 260, 45), jfr);
 
-               // jfr.getContentPane().add(new Square((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) + 5) - 10, 260, 45));
-                JButton enterBtn = new JButton(sweeper.Config.EnterButtonText);
-                enterBtn.setBorder(null);
-                enterBtn.setBackground(new Color(0, 176, 55));
-                enterBtn.setBounds(new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) + 70) - 10, 260, 45));
-                enterBtn.setFont(new Font("There comes a name of font; The name of font is James Bond", Font.PLAIN, 15)); /* This is not joke. Really Bond.*/
-                enterBtn.setForeground(Color.WHITE);
-                jfr.add(enterBtn);
-                System.out.println("Enter btn is added. Coordinates:  " + enterBtn.getBounds().toString());
-                
+		Component EnterBtn = Button(sweeper.Config.EnterButtonText, jfr.getContentPane(), new Color(0, 176, 55), new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) + 70) - 10, 260, 45), 15);
+		EnterBtn.addMouseListener(new MouseListener() { //добавляем MouseListener`a
+			public void mouseClicked(MouseEvent e) { //если нажата кнопка...
+				JOptionPane.showMessageDialog(jfr, "EnterBtn is pressed. Who`s next?");
+			}
+			public void mousePressed(MouseEvent e) {} //костыль
+			public void mouseReleased(MouseEvent e) {} //костыль
+			public void mouseEntered(MouseEvent e) {} //костыль
+			public void mouseExited(MouseEvent e) {} //костыль
+		});
+
+
 		jfr.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseReleased(e);
@@ -103,5 +102,15 @@ public class DantyTheme {
 		new sweeper.GhostText(textField, placeholderText);
 		frame.add(label);
 		return label;
+	}
+	public Component Button(String text, Container cont, Color color, Rectangle rect, int fontSize) {
+		JButton enterBtn = new JButton(text);
+		enterBtn.setBorder(null);
+		enterBtn.setBackground(color);
+		enterBtn.setBounds(rect);
+		enterBtn.setFont(new Font("There comes a name of font; The name of font is James Bond", Font.PLAIN, fontSize)); /* This is not joke. Really Bond.*/
+		enterBtn.setForeground(Color.WHITE);
+		System.out.println("btn is added. Coordinates:  " + enterBtn.getBounds().toString());
+		return cont.add(enterBtn);
 	}
 }
