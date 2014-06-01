@@ -66,6 +66,7 @@ public class DantyTheme {
 		textField.getBorder(),
 		BorderFactory.createEmptyBorder(5, 17, 0, 0)));
 		textField.setForeground(new Color(51, 51, 51));
+                new sweeper.GhostText(textField, "Your login");
 		jfr.add(label);
 
 
@@ -81,7 +82,6 @@ public class DantyTheme {
 				jfr.setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
 			}
 		});
-		jfr.setVisible(true); // Display the window
 		Container mainPanel = jfr.getContentPane();
 		mainPanel.addMouseListener(new MouseAdapter() {@Override
 			public void mouseClicked(MouseEvent e) {
@@ -89,5 +89,7 @@ public class DantyTheme {
 				bg.grabFocus();
 			}
 		});
+                jfr.setVisible(true); // Display the window
 	}
+
 }
