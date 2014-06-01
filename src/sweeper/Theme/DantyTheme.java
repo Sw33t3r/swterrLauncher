@@ -52,10 +52,10 @@ public class DantyTheme {
 		}
 
 
-		TextField(sweeper.Config.LoginPlaceholder, new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) - 75) + 20, 260, 45), jfr);
-		TextField(sweeper.Config.PasswordPlaceholder, new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) + 5) - 10, 260, 45), jfr);
+		Component LoginField = TextField(sweeper.Config.LoginPlaceholder, new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) - 75) + 20, 260, 45), jfr);
+		Component PasswordField = TextField(sweeper.Config.PasswordPlaceholder, new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) +2) - 10, 260, 45), jfr);
 
-		Component EnterBtn = Button(sweeper.Config.EnterButtonText, jfr.getContentPane(), new Color(0, 176, 55), new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) + 70) - 10, 260, 45), 15);
+		Component EnterBtn = Button(sweeper.Config.EnterButtonText, jfr.getContentPane(), new Color(0, 176, 55), new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) + 70) - 10, 260, 45), 17);
 		EnterBtn.addMouseListener(new MouseListener() { //добавляем MouseListener`a
 			public void mouseClicked(MouseEvent e) { //если нажата кнопка...
 				JOptionPane.showMessageDialog(jfr, "EnterBtn is pressed. Who`s next?");
@@ -66,7 +66,21 @@ public class DantyTheme {
 			public void mouseExited(MouseEvent e) {} //костыль
 		});
 
+                Button("", jfr.getContentPane(), new Color(193, 193, 193), new Rectangle((jfr.getWidth()/2)-130,((jfr.getHeight() / 2) -10), 260, 1), 0);
+                Button("", jfr.getContentPane(), new Color(255, 255, 255), new Rectangle((jfr.getWidth()/2)-130,(jfr.getHeight() / 2)-9, 260, 1), 0);
 
+                JCheckBox remember = new JCheckBox(sweeper.Config.RememberText);
+                remember.setBounds((jfr.getWidth() / 2) - 130  , ((jfr.getHeight() / 2) + 130) - 10, 260, 24);
+                remember.setForeground(Color.WHITE);
+		remember.setFont(new Font("There comes a name of font; The name of font is James Bond", Font.PLAIN, 14)); /* This is not joke. Really Bond.*/
+                remember.setOpaque(false);
+                remember.setBorder(null);
+                remember.setIcon(new ImageIcon(PathToImgDir+"/checkboxUnchecked.png"));
+                remember.setFocusPainted(false);
+                remember.setSelectedIcon(new ImageIcon(PathToImgDir+"/checkboxChecked.png"));
+                jfr.add(remember);
+                
+                
 		jfr.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				super.mouseReleased(e);
@@ -105,9 +119,12 @@ public class DantyTheme {
 	}
 	public Component Button(String text, Container cont, Color color, Rectangle rect, int fontSize) {
 		JButton enterBtn = new JButton(text);
-		enterBtn.setBorder(null);
 		enterBtn.setBackground(color);
 		enterBtn.setBounds(rect);
+                enterBtn.setBorderPainted(false);
+                enterBtn.setFocusPainted(false);
+                enterBtn.setContentAreaFilled(false);
+                enterBtn.setOpaque(true);
 		enterBtn.setFont(new Font("There comes a name of font; The name of font is James Bond", Font.PLAIN, fontSize)); /* This is not joke. Really Bond.*/
 		enterBtn.setForeground(Color.WHITE);
 		System.out.println("btn is added. Coordinates:  " + enterBtn.getBounds().toString());
