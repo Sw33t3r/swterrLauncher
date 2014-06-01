@@ -1,18 +1,6 @@
 /*
-
 Thanks for this class, http://stackoverflow.com/users/928711/guillaume-polet
-
 */
-
-
-
-
-
-
-
-
-
-
 package sweeper;
 
 import java.awt.Color;

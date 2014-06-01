@@ -13,7 +13,7 @@ public class DantyTheme {
 
 	static Point mouseDownCompCoords;
 	public void StartMainFrame(String header) {
-		JFrame jfr = new JFrame(header); //Создаём JFrame
+		JFrame jfr = new JFrame(header);//Создаём JFrame
 		mouseDownCompCoords = null; //Обнуляем координаты мыши (лютый бред)
 		ImageIcon bgic = new ImageIcon(PathToImgDir + "/mainBg.png"); //Создаём ImageIcon для фона
 		JLabel bg = new JLabel(bgic);
@@ -53,13 +53,25 @@ public class DantyTheme {
 			title2.setFont(new Font("There comes a name of font; The name of font is James Bond", Font.PLAIN, 19)); /* This is not joke. Really Bond.*/
 			System.out.println("Title is printed. Coordinates:  " + title2.getBounds().toString());
 		}
-		
 
-                TextField(sweeper.Config.LoginPlaceholder, new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) - 75) + 20, 260, 45),jfr);
-                TextField(sweeper.Config.PasswordPlaceholder, new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) + 15) - 10, 260, 45),jfr);
+
+		TextField(sweeper.Config.LoginPlaceholder, new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) - 75) + 20, 260, 45), jfr);
+		TextField(sweeper.Config.PasswordPlaceholder, new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) + 5) - 10, 260, 45), jfr);
+
+               // jfr.getContentPane().add(new Square((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) + 5) - 10, 260, 45));
+                JButton enterBtn = new JButton(sweeper.Config.EnterButtonText);
+                enterBtn.setBorder(null);
+                enterBtn.setBackground(new Color(0, 176, 55));
+                enterBtn.setBounds(new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) + 70) - 10, 260, 45));
+                enterBtn.setFont(new Font("There comes a name of font; The name of font is James Bond", Font.PLAIN, 15)); /* This is not joke. Really Bond.*/
+                enterBtn.setForeground(Color.WHITE);
+                jfr.add(enterBtn);
+                System.out.println("Enter btn is added. Coordinates:  " + enterBtn.getBounds().toString());
                 
-		jfr.addMouseListener(new MouseAdapter() {public void mouseClicked(MouseEvent e) {
-				super.mouseReleased(e);bg.grabFocus();
+		jfr.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				super.mouseReleased(e);
+				bg.grabFocus();
 			}@Override public void mouseReleased(MouseEvent e) {
 				mouseDownCompCoords = null;
 			}@Override public void mousePressed(MouseEvent e) {
@@ -74,8 +86,8 @@ public class DantyTheme {
 		});
 		jfr.setVisible(true); // Display the window
 	}
-        public JLabel TextField(String placeholderText, Rectangle pos,JFrame frame){
-                JTextField textField = new JTextField();
+	public JLabel TextField(String placeholderText, Rectangle pos, JFrame frame) {
+		JTextField textField = new JTextField();
 		textField.setOpaque(false);
 		JLabel label = new JLabel(new ImageIcon(PathToImgDir + "/textField.png"));
 		label.setLayout(new BorderLayout());
@@ -89,7 +101,7 @@ public class DantyTheme {
 		BorderFactory.createEmptyBorder(5, 17, 0, 0)));
 		textField.setForeground(new Color(51, 51, 51));
 		new sweeper.GhostText(textField, placeholderText);
-                frame.add(label);
-                return label;
-        }
+		frame.add(label);
+		return label;
+	}
 }
