@@ -16,7 +16,7 @@ public class DantyTheme {
 		JFrame jfr = new JFrame(header); //Создаём JFrame
 		mouseDownCompCoords = null; //Обнуляем координаты мыши (лютый бред)
 		ImageIcon bgic = new ImageIcon(PathToImgDir + "/mainBg.png"); //Создаём ImageIcon для фона
-                JLabel bg = new JLabel(bgic);
+		JLabel bg = new JLabel(bgic);
 		jfr.setContentPane(bg); //Задаём наш фон ContentPane`ом
 		Point center = GraphicsEnvironment.getLocalGraphicsEnvironment().getCenterPoint(); //Получаем центральную точку на мониторе
 		int windowWidth = bgic.getIconWidth(); //Ширина формы по ширине фона
@@ -66,15 +66,17 @@ public class DantyTheme {
 		textField.getBorder(),
 		BorderFactory.createEmptyBorder(5, 17, 0, 0)));
 		textField.setForeground(new Color(51, 51, 51));
-                new sweeper.GhostText(textField, "Your login");
+		new sweeper.GhostText(textField, sweeper.Config.LoginPlaceholder);
 		jfr.add(label);
 
 
-		jfr.addMouseListener(new MouseListener() {@Override public void mouseReleased(MouseEvent e) {
+		jfr.addMouseListener(new MouseAdapter() {public void mouseClicked(MouseEvent e) {
+				super.mouseReleased(e);bg.grabFocus();
+			}@Override public void mouseReleased(MouseEvent e) {
 				mouseDownCompCoords = null;
 			}@Override public void mousePressed(MouseEvent e) {
 				mouseDownCompCoords = e.getPoint();
-			}@Override public void mouseExited(MouseEvent e) {}@Override public void mouseEntered(MouseEvent e) {}@Override public void mouseClicked(MouseEvent e) {}
+			}@Override public void mouseExited(MouseEvent e) {}@Override public void mouseEntered(MouseEvent e) {}
 		});
 
 		jfr.addMouseMotionListener(new MouseMotionListener() {@Override public void mouseMoved(MouseEvent e) {}@Override public void mouseDragged(MouseEvent e) {
@@ -82,14 +84,7 @@ public class DantyTheme {
 				jfr.setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
 			}
 		});
-		Container mainPanel = jfr.getContentPane();
-		mainPanel.addMouseListener(new MouseAdapter() {@Override
-			public void mouseClicked(MouseEvent e) {
-				super.mouseReleased(e);
-				bg.grabFocus();
-			}
-		});
-                jfr.setVisible(true); // Display the window
+		jfr.setVisible(true); // Display the window
 	}
 
 }
