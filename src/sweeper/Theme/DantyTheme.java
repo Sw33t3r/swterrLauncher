@@ -48,28 +48,16 @@ public class DantyTheme {
 			System.out.println("Title is printed. Coordinates:  " + title.getBounds().toString());
 		} else { //если не надо печатать заголовок
 			Component title2 = jfr.add(new JLabel(header));
-			title2.setBounds((jfr.getWidth() / 2) - 70 /* -70 == width of title:2 */ , ((jfr.getHeight() / 2) - 100) + 20, 140, 20);
+			title2.setBounds((jfr.getWidth() / 2) - 70 /* -70 == width of title:2 */ , ((jfr.getHeight() / 2) - 130) + 20, 140, 20);
 			title2.setForeground(Color.WHITE);
 			title2.setFont(new Font("There comes a name of font; The name of font is James Bond", Font.PLAIN, 19)); /* This is not joke. Really Bond.*/
 			System.out.println("Title is printed. Coordinates:  " + title2.getBounds().toString());
 		}
-		JTextField textField = new JTextField();
-		textField.setOpaque(false);
-		JLabel label = new JLabel(new ImageIcon(PathToImgDir + "/textField.png"));
-		label.setLayout(new BorderLayout());
-		label.add(textField);
-		textField.setBounds((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) - 45) + 20, 260, 45);
-		label.setBounds((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) - 45) + 20, 260, 45);
-		textField.setBorder(null);
-		textField.setFont(new Font("There comes a name of font; The name of font is James Bond", Font.PLAIN, 14)); /* This is not joke. Really Bond.*/
-		textField.setBorder(BorderFactory.createCompoundBorder(
-		textField.getBorder(),
-		BorderFactory.createEmptyBorder(5, 17, 0, 0)));
-		textField.setForeground(new Color(51, 51, 51));
-		new sweeper.GhostText(textField, sweeper.Config.LoginPlaceholder);
-		jfr.add(label);
+		
 
-
+                TextField(sweeper.Config.LoginPlaceholder, new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) - 75) + 20, 260, 45),jfr);
+                TextField(sweeper.Config.PasswordPlaceholder, new Rectangle((jfr.getWidth() / 2) - 130 /* -60 == width of title:2 */ , ((jfr.getHeight() / 2) + 15) - 10, 260, 45),jfr);
+                
 		jfr.addMouseListener(new MouseAdapter() {public void mouseClicked(MouseEvent e) {
 				super.mouseReleased(e);bg.grabFocus();
 			}@Override public void mouseReleased(MouseEvent e) {
@@ -86,5 +74,22 @@ public class DantyTheme {
 		});
 		jfr.setVisible(true); // Display the window
 	}
-
+        public JLabel TextField(String placeholderText, Rectangle pos,JFrame frame){
+                JTextField textField = new JTextField();
+		textField.setOpaque(false);
+		JLabel label = new JLabel(new ImageIcon(PathToImgDir + "/textField.png"));
+		label.setLayout(new BorderLayout());
+		label.add(textField);
+		textField.setBounds(pos);
+		label.setBounds(pos);
+		textField.setBorder(null);
+		textField.setFont(new Font("There comes a name of font; The name of font is James Bond", Font.PLAIN, 14)); /* This is not joke. Really Bond.*/
+		textField.setBorder(BorderFactory.createCompoundBorder(
+		textField.getBorder(),
+		BorderFactory.createEmptyBorder(5, 17, 0, 0)));
+		textField.setForeground(new Color(51, 51, 51));
+		new sweeper.GhostText(textField, placeholderText);
+                frame.add(label);
+                return label;
+        }
 }
